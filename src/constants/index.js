@@ -101,12 +101,12 @@ const blogPosts = [
 
 const techStack = [
   {
-    category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
+    category: "Visualization Tools",
+    items: ["Tableau", "PowerBI"],
   },
   {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
+    category: "DBMS",
+    items: ["PostgreSQL", "MySQL"],
   },
   {
     category: "Styling",
