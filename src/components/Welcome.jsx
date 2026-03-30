@@ -40,16 +40,21 @@ const setupTextHover = (container, type) => {
     letters.forEach((letter) => {
       const { left: l, width: w } = letter.getBoundingClientRect();
       const distance = Math.abs(mouseX - (l - left + w / 2));
-      const intensity = Math.exp(-(distance ** 2) / 2000);
+      const intensity = Math.exp(-(distance ** 2) / 50000);
 
       const weight = base + (max - base) * intensity;
       animateLetter(letter, weight);
     });
   };
 
+  const handleMouseLeave = () =>
+    letters.forEach((letter) => animateLetter(letter, base, 0.7));
+
   container.addEventListener("mousemove", handleMouseMove);
+  container.addEventListener("mousemove", handleMouseLeave);
   return () => {
     container.removeEventListener("mousemove", handleMouseMove);
+    container.removeEventListener("mousemove", handleMouseLeave);
   };
 };
 
