@@ -12,9 +12,9 @@ const renderText = (text, className, baseWeight = 400) => {
     <span
       key={i}
       className={className}
-      style={{ fontVariationSettings: `'wght ${baseWeight}` }}
+      style={{ fontVariationSettings: `'wght' ${baseWeight}` }}
     >
-      {char == " " ? "\u00A0" : char}
+      {char === " " ? "\u00A0" : char}
     </span>
   ));
 };
@@ -23,13 +23,13 @@ const setupTextHover = (container, type) => {
   if (!container) return;
 
   const letters = container.querySelectorAll("span");
-  const { min, max, default: base } = FONT_WEIGHTS[type];
+  const { max, default: base } = FONT_WEIGHTS[type];
 
   const animateLetter = (letter, weight, duration = 0.25) => {
     return gsap.to(letter, {
       duration,
       ease: "power2.out",
-      fontVariationSettings: `'wght ${weight}`,
+      fontVariationSettings: `'wght' ${weight}`,
     });
   };
 
@@ -42,19 +42,28 @@ const setupTextHover = (container, type) => {
       const distance = Math.abs(mouseX - (l - left + w / 2));
       const intensity = Math.exp(-(distance ** 2) / 2000);
 
-      animateLetter(letter, min + (max - min) * intensity);
+      const weight = base + (max - base) * intensity;
+      animateLetter(letter, weight);
     });
   };
 
   container.addEventListener("mousemove", handleMouseMove);
+  return () => {
+    container.removeEventListener("mousemove", handleMouseMove);
+  };
 };
 
 const Welcome = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   useGSAP(() => {
-    setupTextHover(titleRef.current, "title");
-    setupTextHover(subtitleRef.current, "subtitle");
+    const cleanupTitle = setupTextHover(titleRef.current, "title");
+    const cleanupSubtitle = setupTextHover(subtitleRef.current, "subtitle");
+
+    return () => {
+      cleanupTitle?.();
+      cleanupSubtitle?.();
+    };
   });
 
   return (
