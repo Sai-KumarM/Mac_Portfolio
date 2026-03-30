@@ -9,12 +9,12 @@ const Terminal = () => {
     <>
       <div id="window-header">
         <WindowControls target="terminal" />
-        <h2>Tech Stack</h2>
+        <h2>Terminal Tech Stack</h2>
       </div>
 
       <div className="techstack">
         <p>
-          <span className="font-bold">@Sai %</span>
+          <span className="font-bold">@Sai-MacbookPro ~ % </span>
           show tech stack
         </p>
         <div className="label">
@@ -39,7 +39,7 @@ const Terminal = () => {
         </ul>
         <div className="footnote">
           <p>
-            <Check size={20} /> 6 of 6 stacks loaded successfully
+            <Check size={20} /> 5 of 5 stacks loaded successfully
           </p>
           <p className="text-black">
             <Flag size={15} fill="black" />
